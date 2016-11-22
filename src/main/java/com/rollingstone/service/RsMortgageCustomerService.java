@@ -37,6 +37,17 @@ public class RsMortgageCustomerService {
     }
 
     public Customer createCustomer(Customer customer) {
+    	if (customer.getDateOfBirth() != null){
+    		log.info("Customer Date of Birth :"+customer.getDateOfBirth());
+    	}else {
+    		log.info("Customer Date of Birth is null :");
+    	}
+    	
+    	if (customer.getDateOfBirth() != null){
+    		log.info("Customer Date of Birth :"+customer.getDateOfBirth());
+    	}else {
+    		log.info("Customer Date of Birth is null :");
+    	}
         return customerRepository.save(customer);
     }
 

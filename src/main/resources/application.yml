@@ -3,7 +3,7 @@
 ### Java properties file.
 
 server:
-  port: 8285
+  port: 9001
 
 eureka:
   client:
@@ -25,7 +25,7 @@ security:
 
 #management endpoints on a separate port
 management:
-  port: 8095
+  port: 9002
   security:
     enabled: false # management port is internal only. no need to secure it.
 
@@ -58,7 +58,7 @@ spring:
 
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost/ecommerce
+    url: jdbc:mysql://localhost/rsmortgage
     username: root
     password: root
 

@@ -16,7 +16,7 @@
 	</parent>
 
 	<properties>
-		<start-class>com.rollingstone.UserRestAPIApplication</start-class>
+		<start-class>com.rollingstone.RsMortgageCustomerRestAPIApplication</start-class>
 	</properties>
 
 	<dependencyManagement>

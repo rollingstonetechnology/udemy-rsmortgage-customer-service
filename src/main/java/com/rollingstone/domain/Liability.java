@@ -42,7 +42,7 @@ public class Liability {
 	private Date dateMaturing;
 	
 	@OneToOne
-	@JoinColumn(name="id")
+	@JoinColumn(name="liability_type_id")
 	private LiabilityType investmentType;
 
 	@Column(nullable = false)

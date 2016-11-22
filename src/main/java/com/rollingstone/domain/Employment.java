@@ -62,7 +62,7 @@ public class Employment {
 	@Column(nullable = false)
 	private String employerName;
 	
-	@OneToOne
+	@Column(nullable = false)
 	private String employmentType;
 	
 	@Column(nullable = false)

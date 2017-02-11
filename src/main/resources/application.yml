@@ -1,21 +1,27 @@
 ### This is the main way to configure the application (other than annotations).
 ### This fils is in Yaml format but you can also do this using the traditional
 ### Java properties file.
-
+spring:
+  profiles:
+    active:
+      mysql
+  cloud:
+    config:
+      uri: http://localhost:9000
 server:
   port: 9001
 
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://eureka-host1:8761/eureka/,http://eureka-host2:8762/eureka/
       
 spring.jmx:
    enabled: false
 
 spring.datasource:
-    driverClassName: org.h2.Driver
-    url: jdbc:h2:mem:bootexample;MODE=MySQL
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost/rsmortgage;MODE=MySQL
 
 
 #todo: make sure to always enable security in production
@@ -40,33 +46,3 @@ info:
     name: ${project.name}
     description: ${project.description}
     version: ${project.version}
-
-user.service:
-  name: 'default profile:'
----
-spring:
-  profiles: test
-
-spring.jpa:
-    hibernate.ddl-auto: create-drop
-
-user.service:
-  name: 'test profile:'
----
-spring:
-  profiles: mysql
-
-  datasource:
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost/rsmortgage
-    username: root
-    password: root
-
-  jpa:
-    hibernate:
-      dialect: org.hibernate.dialect.MySQLInnoDBDialect
-      ddl-auto: update # todo: in non-dev environments, comment this out:
-
-
-user.service:
-  name: 'test profile:'

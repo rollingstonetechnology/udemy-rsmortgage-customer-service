@@ -1,3 +1,9 @@
 spring:
   application:
-    name: rsmortgage-customer-service
+    name: udemy-rsmortgage-customer-service
+  profiles:
+    active:
+      mysql
+  cloud:
+    config:
+      uri: http://localhost:9000

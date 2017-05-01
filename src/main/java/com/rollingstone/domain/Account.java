@@ -20,9 +20,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-/*
- * A User POJO serving as an Entity as well as a Data Transfer Object i.e DTO
- */
 @Entity
 @Table(name = "rsmortgage_account")
 @XmlRootElement
@@ -32,13 +29,13 @@ public class Account {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-
+	
 	@OneToOne
 	@JoinColumn(name="account_type_id")
 	private AccountType accountType;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_created", unique = true, nullable = false, length = 10)
+	@Column(name = "date_created", unique = false, nullable = false, length = 10)
 	private Date dateCreated;
 	
 	@Column(nullable = false)
@@ -61,11 +58,15 @@ public class Account {
 	
 	@Column(nullable = false)
 	private boolean pmiAttached;
-
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "customer_id", nullable = false)
 	@JsonBackReference
 	Customer customer;
+	
+	public Account(){
+		
+	}
 
 	public long getId() {
 		return id;
@@ -160,8 +161,19 @@ public class Account {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((accountType == null) ? 0 : accountType.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(balanceAmount);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((customer == null) ? 0 : customer.hashCode());
 		result = prime * result + ((dateCreated == null) ? 0 : dateCreated.hashCode());
+		result = prime * result + (escrowAttached ? 1231 : 1237);
+		result = prime * result + (fullyPaid ? 1231 : 1237);
 		result = prime * result + (int) (id ^ (id >>> 32));
+		temp = Double.doubleToLongBits(originalCreditAmount);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + (pmiAttached ? 1231 : 1237);
+		result = prime * result + Float.floatToIntBits(rateOfInterest);
+		result = prime * result + term;
 		return result;
 	}
 
@@ -179,20 +191,43 @@ public class Account {
 				return false;
 		} else if (!accountType.equals(other.accountType))
 			return false;
+		if (Double.doubleToLongBits(balanceAmount) != Double.doubleToLongBits(other.balanceAmount))
+			return false;
+		if (customer == null) {
+			if (other.customer != null)
+				return false;
+		} else if (!customer.equals(other.customer))
+			return false;
 		if (dateCreated == null) {
 			if (other.dateCreated != null)
 				return false;
 		} else if (!dateCreated.equals(other.dateCreated))
 			return false;
+		if (escrowAttached != other.escrowAttached)
+			return false;
+		if (fullyPaid != other.fullyPaid)
+			return false;
 		if (id != other.id)
+			return false;
+		if (Double.doubleToLongBits(originalCreditAmount) != Double.doubleToLongBits(other.originalCreditAmount))
+			return false;
+		if (pmiAttached != other.pmiAttached)
+			return false;
+		if (Float.floatToIntBits(rateOfInterest) != Float.floatToIntBits(other.rateOfInterest))
+			return false;
+		if (term != other.term)
 			return false;
 		return true;
 	}
 
-	public Account(){
-		
+	@Override
+	public String toString() {
+		return "Account [id=" + id + ", accountType=" + accountType + ", dateCreated=" + dateCreated
+				+ ", originalCreditAmount=" + originalCreditAmount + ", balanceAmount=" + balanceAmount + ", fullyPaid="
+				+ fullyPaid + ", term=" + term + ", rateOfInterest=" + rateOfInterest + ", escrowAttached="
+				+ escrowAttached + ", pmiAttached=" + pmiAttached + ", customer=" + customer + "]";
 	}
-	
+
 	public Account(long id, AccountType accountType, Date dateCreated, double originalCreditAmount,
 			double balanceAmount, boolean fullyPaid, int term, float rateOfInterest, boolean escrowAttached,
 			boolean pmiAttached, Customer customer) {
@@ -208,14 +243,6 @@ public class Account {
 		this.escrowAttached = escrowAttached;
 		this.pmiAttached = pmiAttached;
 		this.customer = customer;
-	}
-
-	@Override
-	public String toString() {
-		return "Account [id=" + id + ", accountType=" + accountType + ", dateCreated=" + dateCreated
-				+ ", originalCreditAmount=" + originalCreditAmount + ", balanceAmount=" + balanceAmount + ", fullyPaid="
-				+ fullyPaid + ", term=" + term + ", rateOfInterest=" + rateOfInterest + ", escrowAttached="
-				+ escrowAttached + ", pmiAttached=" + pmiAttached + ", customer=" + customer + "]";
 	}
 	
 	

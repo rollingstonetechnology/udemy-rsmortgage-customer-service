@@ -19,47 +19,28 @@ public class ContactType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
 	@Column(nullable = false)
 	private String contactTypeName;
-	
 	@Column(nullable = false)
 	private String contactTypeDescription;
-
 	public long getId() {
 		return id;
 	}
-
 	public void setId(long id) {
 		this.id = id;
 	}
-
-	public ContactType(){
-		
-	}
-
 	public String getContactTypeName() {
 		return contactTypeName;
 	}
-
 	public void setContactTypeName(String contactTypeName) {
 		this.contactTypeName = contactTypeName;
 	}
-
 	public String getContactTypeDescription() {
 		return contactTypeDescription;
 	}
-
 	public void setContactTypeDescription(String contactTypeDescription) {
 		this.contactTypeDescription = contactTypeDescription;
 	}
-
-	@Override
-	public String toString() {
-		return "ContactType [id=" + id + ", contactTypeName=" + contactTypeName + ", contactTypeDescription="
-				+ contactTypeDescription + "]";
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -69,7 +50,6 @@ public class ContactType {
 		result = prime * result + (int) (id ^ (id >>> 32));
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -93,7 +73,6 @@ public class ContactType {
 			return false;
 		return true;
 	}
-
 	public ContactType(long id, String contactTypeName, String contactTypeDescription) {
 		super();
 		this.id = id;
@@ -101,8 +80,8 @@ public class ContactType {
 		this.contactTypeDescription = contactTypeDescription;
 	}
 	
-	
-
-
-	
+	public ContactType()
+	{
+		
+	}
 }

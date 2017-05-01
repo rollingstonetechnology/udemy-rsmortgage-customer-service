@@ -20,13 +20,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-/*
- * A User POJO serving as an Entity as well as a Data Transfer Object i.e DTO
- */
 @Entity
 @Table(name = "rsmortgage_education")
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
+
 public class Education {
 
 	@Id
@@ -58,7 +56,7 @@ public class Education {
 	private DegreeType degreeType;
 	
 	@Column(nullable = false)
-	private String 	schoolAdminPerson;
+	private String schoolAdminPerson;
 	
 	@Column(nullable = false)
 	private String schoolAdminPhone;
@@ -225,17 +223,6 @@ public class Education {
 		this.schoolAddressCountry = schoolAddressCountry;
 	}
 
-	@Override
-	public String toString() {
-		return "Education [id=" + id + ", fromDate=" + fromDate + ", dateTo=" + dateTo + ", isCurrentSchool="
-				+ isCurrentSchool + ", didGraduate=" + didGraduate + ", cumulativeGpa=" + cumulativeGpa
-				+ ", schoolName=" + schoolName + ", degreeType=" + degreeType + ", schoolAdminPerson="
-				+ schoolAdminPerson + ", schoolAdminPhone=" + schoolAdminPhone + ", schoolAdminEmail="
-				+ schoolAdminEmail + ", schoolAdminFax=" + schoolAdminFax + ", schoolAddressLine1=" + schoolAddressLine1
-				+ ", schoolAddressLine2=" + schoolAddressLine2 + ", schoolAddressCity=" + schoolAddressCity
-				+ ", schoolAddressState=" + schoolAddressState + ", schoolAddressCountry=" + schoolAddressCountry + "]";
-	}
-
 	public Customer getCustomer() {
 		return customer;
 	}
@@ -245,12 +232,39 @@ public class Education {
 	}
 
 	@Override
+	public String toString() {
+		return "Education [id=" + id + ", fromDate=" + fromDate + ", dateTo=" + dateTo + ", isCurrentSchool="
+				+ isCurrentSchool + ", didGraduate=" + didGraduate + ", cumulativeGpa=" + cumulativeGpa
+				+ ", schoolName=" + schoolName + ", degreeType=" + degreeType + ", schoolAdminPerson="
+				+ schoolAdminPerson + ", schoolAdminPhone=" + schoolAdminPhone + ", schoolAdminEmail="
+				+ schoolAdminEmail + ", schoolAdminFax=" + schoolAdminFax + ", schoolAddressLine1=" + schoolAddressLine1
+				+ ", schoolAddressLine2=" + schoolAddressLine2 + ", schoolAddressCity=" + schoolAddressCity
+				+ ", schoolAddressState=" + schoolAddressState + ", schoolAddressCountry=" + schoolAddressCountry
+				+ ", customer=" + customer + "]";
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + Float.floatToIntBits(cumulativeGpa);
 		result = prime * result + ((customer == null) ? 0 : customer.hashCode());
 		result = prime * result + ((dateTo == null) ? 0 : dateTo.hashCode());
+		result = prime * result + ((degreeType == null) ? 0 : degreeType.hashCode());
+		result = prime * result + (didGraduate ? 1231 : 1237);
 		result = prime * result + ((fromDate == null) ? 0 : fromDate.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + (isCurrentSchool ? 1231 : 1237);
+		result = prime * result + ((schoolAddressCity == null) ? 0 : schoolAddressCity.hashCode());
+		result = prime * result + ((schoolAddressCountry == null) ? 0 : schoolAddressCountry.hashCode());
+		result = prime * result + ((schoolAddressLine1 == null) ? 0 : schoolAddressLine1.hashCode());
+		result = prime * result + ((schoolAddressLine2 == null) ? 0 : schoolAddressLine2.hashCode());
+		result = prime * result + ((schoolAddressState == null) ? 0 : schoolAddressState.hashCode());
+		result = prime * result + ((schoolAdminEmail == null) ? 0 : schoolAdminEmail.hashCode());
+		result = prime * result + ((schoolAdminFax == null) ? 0 : schoolAdminFax.hashCode());
+		result = prime * result + ((schoolAdminPerson == null) ? 0 : schoolAdminPerson.hashCode());
+		result = prime * result + ((schoolAdminPhone == null) ? 0 : schoolAdminPhone.hashCode());
+		result = prime * result + ((schoolName == null) ? 0 : schoolName.hashCode());
 		return result;
 	}
 
@@ -263,6 +277,8 @@ public class Education {
 		if (getClass() != obj.getClass())
 			return false;
 		Education other = (Education) obj;
+		if (Float.floatToIntBits(cumulativeGpa) != Float.floatToIntBits(other.cumulativeGpa))
+			return false;
 		if (customer == null) {
 			if (other.customer != null)
 				return false;
@@ -273,18 +289,79 @@ public class Education {
 				return false;
 		} else if (!dateTo.equals(other.dateTo))
 			return false;
+		if (degreeType == null) {
+			if (other.degreeType != null)
+				return false;
+		} else if (!degreeType.equals(other.degreeType))
+			return false;
+		if (didGraduate != other.didGraduate)
+			return false;
 		if (fromDate == null) {
 			if (other.fromDate != null)
 				return false;
 		} else if (!fromDate.equals(other.fromDate))
 			return false;
+		if (id != other.id)
+			return false;
+		if (isCurrentSchool != other.isCurrentSchool)
+			return false;
+		if (schoolAddressCity == null) {
+			if (other.schoolAddressCity != null)
+				return false;
+		} else if (!schoolAddressCity.equals(other.schoolAddressCity))
+			return false;
+		if (schoolAddressCountry == null) {
+			if (other.schoolAddressCountry != null)
+				return false;
+		} else if (!schoolAddressCountry.equals(other.schoolAddressCountry))
+			return false;
+		if (schoolAddressLine1 == null) {
+			if (other.schoolAddressLine1 != null)
+				return false;
+		} else if (!schoolAddressLine1.equals(other.schoolAddressLine1))
+			return false;
+		if (schoolAddressLine2 == null) {
+			if (other.schoolAddressLine2 != null)
+				return false;
+		} else if (!schoolAddressLine2.equals(other.schoolAddressLine2))
+			return false;
+		if (schoolAddressState == null) {
+			if (other.schoolAddressState != null)
+				return false;
+		} else if (!schoolAddressState.equals(other.schoolAddressState))
+			return false;
+		if (schoolAdminEmail == null) {
+			if (other.schoolAdminEmail != null)
+				return false;
+		} else if (!schoolAdminEmail.equals(other.schoolAdminEmail))
+			return false;
+		if (schoolAdminFax == null) {
+			if (other.schoolAdminFax != null)
+				return false;
+		} else if (!schoolAdminFax.equals(other.schoolAdminFax))
+			return false;
+		if (schoolAdminPerson == null) {
+			if (other.schoolAdminPerson != null)
+				return false;
+		} else if (!schoolAdminPerson.equals(other.schoolAdminPerson))
+			return false;
+		if (schoolAdminPhone == null) {
+			if (other.schoolAdminPhone != null)
+				return false;
+		} else if (!schoolAdminPhone.equals(other.schoolAdminPhone))
+			return false;
+		if (schoolName == null) {
+			if (other.schoolName != null)
+				return false;
+		} else if (!schoolName.equals(other.schoolName))
+			return false;
 		return true;
 	}
-	
+
 	public Education(){
 		
 	}
-
+	
 	public Education(long id, Date fromDate, Date dateTo, boolean isCurrentSchool, boolean didGraduate,
 			float cumulativeGpa, String schoolName, DegreeType degreeType, String schoolAdminPerson,
 			String schoolAdminPhone, String schoolAdminEmail, String schoolAdminFax, String schoolAddressLine1,

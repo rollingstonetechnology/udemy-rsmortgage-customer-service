@@ -25,18 +25,18 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @EnableDiscoveryClient
 @EnableFeignClients
-public class RsMortgageCustomerRestAPIApplication extends SpringBootServletInitializer {
+public class RsMortgageCustomerRestAPIApplication  { //extends SpringBootServletInitializer {
 
     private static final Class<RsMortgageCustomerRestAPIApplication> applicationClass = RsMortgageCustomerRestAPIApplication.class;
     private static final Logger log = LoggerFactory.getLogger(applicationClass);
 
 	public static void main(String[] args) {
-		SpringApplication.run(applicationClass, args);
+		SpringApplication.run(RsMortgageCustomerRestAPIApplication.class, args);
 	}
 
-    @Override
+  /*  @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(applicationClass);
-    }
+    }*/
 
 }

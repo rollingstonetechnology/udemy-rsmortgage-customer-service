@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,9 +19,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-/*
- * A User POJO serving as an Entity as well as a Data Transfer Object i.e DTO
- */
 @Entity
 @Table(name = "rsmortgage_employment")
 @XmlRootElement
@@ -40,25 +36,25 @@ public class Employment {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "date_to", unique = true, nullable = false, length = 10)
 	private Date dateTo;
-
+	
 	@Column(nullable = false)
 	private float numYears;
-
+	
 	@Column(nullable = false)
 	private float grossSalary;
-
+	
 	@Column(nullable = false)
 	private float netSalary;
-
+	
 	@Column(nullable = false)
 	private boolean isCurrentEmployer;
-
+	
 	@Column(nullable = false)
 	private String jobTitle;
-
+	
 	@Column(nullable = false)
 	private String jobDescription;
-
+	
 	@Column(nullable = false)
 	private String employerName;
 	
@@ -66,7 +62,7 @@ public class Employment {
 	private String employmentType;
 	
 	@Column(nullable = false)
-	private String 	employerHRPerson;
+	private String employerHRPerson;
 	
 	@Column(nullable = false)
 	private String employerHRPhone;
@@ -96,7 +92,7 @@ public class Employment {
 	@JoinColumn(name = "customer_id", nullable = false)
 	@JsonBackReference
 	Customer customer;
-
+	
 	public long getId() {
 		return id;
 	}
@@ -266,26 +262,30 @@ public class Employment {
 	}
 
 	@Override
-	public String toString() {
-		return "Employment [id=" + id + ", fromDate=" + fromDate + ", dateTo=" + dateTo + ", numYears=" + numYears
-				+ ", grossSalary=" + grossSalary + ", netSalary=" + netSalary + ", isCurrentEmployer="
-				+ isCurrentEmployer + ", jobTitle=" + jobTitle + ", jobDescription=" + jobDescription
-				+ ", employerName=" + employerName + ", employmentType=" + employmentType + ", employerHRPerson="
-				+ employerHRPerson + ", employerHRPhone=" + employerHRPhone + ", employerHREmail=" + employerHREmail
-				+ ", employerHRFax=" + employerHRFax + ", employerAddressLine1=" + employerAddressLine1
-				+ ", employerAddressLine2=" + employerAddressLine2 + ", employerAddressCity=" + employerAddressCity
-				+ ", employerAddressState=" + employerAddressState + ", employerAddressCountry="
-				+ employerAddressCountry + ", customer=" + customer + "]";
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((customer == null) ? 0 : customer.hashCode());
 		result = prime * result + ((dateTo == null) ? 0 : dateTo.hashCode());
+		result = prime * result + ((employerAddressCity == null) ? 0 : employerAddressCity.hashCode());
+		result = prime * result + ((employerAddressCountry == null) ? 0 : employerAddressCountry.hashCode());
+		result = prime * result + ((employerAddressLine1 == null) ? 0 : employerAddressLine1.hashCode());
+		result = prime * result + ((employerAddressLine2 == null) ? 0 : employerAddressLine2.hashCode());
+		result = prime * result + ((employerAddressState == null) ? 0 : employerAddressState.hashCode());
+		result = prime * result + ((employerHREmail == null) ? 0 : employerHREmail.hashCode());
+		result = prime * result + ((employerHRFax == null) ? 0 : employerHRFax.hashCode());
+		result = prime * result + ((employerHRPerson == null) ? 0 : employerHRPerson.hashCode());
+		result = prime * result + ((employerHRPhone == null) ? 0 : employerHRPhone.hashCode());
 		result = prime * result + ((employerName == null) ? 0 : employerName.hashCode());
+		result = prime * result + ((employmentType == null) ? 0 : employmentType.hashCode());
 		result = prime * result + ((fromDate == null) ? 0 : fromDate.hashCode());
+		result = prime * result + Float.floatToIntBits(grossSalary);
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + (isCurrentEmployer ? 1231 : 1237);
+		result = prime * result + ((jobDescription == null) ? 0 : jobDescription.hashCode());
+		result = prime * result + ((jobTitle == null) ? 0 : jobTitle.hashCode());
+		result = prime * result + Float.floatToIntBits(netSalary);
+		result = prime * result + Float.floatToIntBits(numYears);
 		return result;
 	}
 
@@ -308,15 +308,85 @@ public class Employment {
 				return false;
 		} else if (!dateTo.equals(other.dateTo))
 			return false;
+		if (employerAddressCity == null) {
+			if (other.employerAddressCity != null)
+				return false;
+		} else if (!employerAddressCity.equals(other.employerAddressCity))
+			return false;
+		if (employerAddressCountry == null) {
+			if (other.employerAddressCountry != null)
+				return false;
+		} else if (!employerAddressCountry.equals(other.employerAddressCountry))
+			return false;
+		if (employerAddressLine1 == null) {
+			if (other.employerAddressLine1 != null)
+				return false;
+		} else if (!employerAddressLine1.equals(other.employerAddressLine1))
+			return false;
+		if (employerAddressLine2 == null) {
+			if (other.employerAddressLine2 != null)
+				return false;
+		} else if (!employerAddressLine2.equals(other.employerAddressLine2))
+			return false;
+		if (employerAddressState == null) {
+			if (other.employerAddressState != null)
+				return false;
+		} else if (!employerAddressState.equals(other.employerAddressState))
+			return false;
+		if (employerHREmail == null) {
+			if (other.employerHREmail != null)
+				return false;
+		} else if (!employerHREmail.equals(other.employerHREmail))
+			return false;
+		if (employerHRFax == null) {
+			if (other.employerHRFax != null)
+				return false;
+		} else if (!employerHRFax.equals(other.employerHRFax))
+			return false;
+		if (employerHRPerson == null) {
+			if (other.employerHRPerson != null)
+				return false;
+		} else if (!employerHRPerson.equals(other.employerHRPerson))
+			return false;
+		if (employerHRPhone == null) {
+			if (other.employerHRPhone != null)
+				return false;
+		} else if (!employerHRPhone.equals(other.employerHRPhone))
+			return false;
 		if (employerName == null) {
 			if (other.employerName != null)
 				return false;
 		} else if (!employerName.equals(other.employerName))
 			return false;
+		if (employmentType == null) {
+			if (other.employmentType != null)
+				return false;
+		} else if (!employmentType.equals(other.employmentType))
+			return false;
 		if (fromDate == null) {
 			if (other.fromDate != null)
 				return false;
 		} else if (!fromDate.equals(other.fromDate))
+			return false;
+		if (Float.floatToIntBits(grossSalary) != Float.floatToIntBits(other.grossSalary))
+			return false;
+		if (id != other.id)
+			return false;
+		if (isCurrentEmployer != other.isCurrentEmployer)
+			return false;
+		if (jobDescription == null) {
+			if (other.jobDescription != null)
+				return false;
+		} else if (!jobDescription.equals(other.jobDescription))
+			return false;
+		if (jobTitle == null) {
+			if (other.jobTitle != null)
+				return false;
+		} else if (!jobTitle.equals(other.jobTitle))
+			return false;
+		if (Float.floatToIntBits(netSalary) != Float.floatToIntBits(other.netSalary))
+			return false;
+		if (Float.floatToIntBits(numYears) != Float.floatToIntBits(other.numYears))
 			return false;
 		return true;
 	}
@@ -352,6 +422,19 @@ public class Employment {
 		this.employerAddressState = employerAddressState;
 		this.employerAddressCountry = employerAddressCountry;
 		this.customer = customer;
+	}
+
+	@Override
+	public String toString() {
+		return "Employment [id=" + id + ", fromDate=" + fromDate + ", dateTo=" + dateTo + ", numYears=" + numYears
+				+ ", grossSalary=" + grossSalary + ", netSalary=" + netSalary + ", isCurrentEmployer="
+				+ isCurrentEmployer + ", jobTitle=" + jobTitle + ", jobDescription=" + jobDescription
+				+ ", employerName=" + employerName + ", employmentType=" + employmentType + ", employerHRPerson="
+				+ employerHRPerson + ", employerHRPhone=" + employerHRPhone + ", employerHREmail=" + employerHREmail
+				+ ", employerHRFax=" + employerHRFax + ", employerAddressLine1=" + employerAddressLine1
+				+ ", employerAddressLine2=" + employerAddressLine2 + ", employerAddressCity=" + employerAddressCity
+				+ ", employerAddressState=" + employerAddressState + ", employerAddressCountry="
+				+ employerAddressCountry + ", customer=" + customer + "]";
 	}
 
 	

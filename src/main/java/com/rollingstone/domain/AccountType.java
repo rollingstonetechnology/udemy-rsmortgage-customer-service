@@ -51,22 +51,6 @@ public class AccountType {
 	}
 
 	@Override
-	public String toString() {
-		return "AccountType [id=" + id + ", accountTypeName=" + accountTypeName + ", accountTypeDescription="
-				+ accountTypeDescription + "]";
-	}
-
-	public AccountType(){
-		
-	}
-	public AccountType(long id, String accountTypeName, String accountTypeDescription) {
-		super();
-		this.id = id;
-		this.accountTypeName = accountTypeName;
-		this.accountTypeDescription = accountTypeDescription;
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -100,5 +84,21 @@ public class AccountType {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "AccountType [id=" + id + ", accountTypeName=" + accountTypeName + ", accountTypeDescription="
+				+ accountTypeDescription + "]";
+	}
+
+	public AccountType(){
+		
+	}
 	
+	public AccountType(long id, String accountTypeName, String accountTypeDescription) {
+		super();
+		this.id = id;
+		this.accountTypeName = accountTypeName;
+		this.accountTypeDescription = accountTypeDescription;
+	}
+
 }

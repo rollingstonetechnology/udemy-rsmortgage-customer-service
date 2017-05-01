@@ -20,9 +20,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-/*
- * A User POJO serving as an Entity as well as a Data Transfer Object i.e DTO
- */
 @Entity
 @Table(name = "rsmortgage_investment")
 @XmlRootElement
@@ -49,30 +46,18 @@ public class Investment {
 	private double currentValue;
 	
 	@Column(nullable = false)
-	private double 	investedValue;
-
+	private double investedValue;
+	
 	@Column(nullable = false)
-	private float 	monthlyIncome;
+	private float monthlyIncome;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "customer_id", nullable = false)
 	@JsonBackReference
 	Customer customer;
-	
-	public Investment(){
-		
-	}
 
 	public long getId() {
 		return id;
-	}
-
-	public float getMonthlyIncome() {
-		return monthlyIncome;
-	}
-
-	public void setMonthlyIncome(float monthlyIncome) {
-		this.monthlyIncome = monthlyIncome;
 	}
 
 	public void setId(long id) {
@@ -119,6 +104,14 @@ public class Investment {
 		this.investedValue = investedValue;
 	}
 
+	public float getMonthlyIncome() {
+		return monthlyIncome;
+	}
+
+	public void setMonthlyIncome(float monthlyIncome) {
+		this.monthlyIncome = monthlyIncome;
+	}
+
 	public Customer getCustomer() {
 		return customer;
 	}
@@ -140,7 +133,7 @@ public class Investment {
 		result = prime * result + (int) (id ^ (id >>> 32));
 		temp = Double.doubleToLongBits(investedValue);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((investmentType == null) ? 0 : investmentType.hashCode());
+		result = prime * result + Float.floatToIntBits(monthlyIncome);
 		return result;
 	}
 
@@ -174,16 +167,17 @@ public class Investment {
 			return false;
 		if (Double.doubleToLongBits(investedValue) != Double.doubleToLongBits(other.investedValue))
 			return false;
-		if (investmentType == null) {
-			if (other.investmentType != null)
-				return false;
-		} else if (!investmentType.equals(other.investmentType))
+		if (Float.floatToIntBits(monthlyIncome) != Float.floatToIntBits(other.monthlyIncome))
 			return false;
 		return true;
 	}
 
+	public Investment(){
+		
+	}
+	
 	public Investment(long id, Date fromDate, Date dateMaturing, InvestmentType investmentType, double currentValue,
-			double investedValue, Customer customer) {
+			double investedValue, float monthlyIncome, Customer customer) {
 		super();
 		this.id = id;
 		this.fromDate = fromDate;
@@ -191,7 +185,15 @@ public class Investment {
 		this.investmentType = investmentType;
 		this.currentValue = currentValue;
 		this.investedValue = investedValue;
+		this.monthlyIncome = monthlyIncome;
 		this.customer = customer;
+	}
+
+	@Override
+	public String toString() {
+		return "Investment [id=" + id + ", fromDate=" + fromDate + ", dateMaturing=" + dateMaturing + ", currentValue="
+				+ currentValue + ", investedValue=" + investedValue + ", monthlyIncome=" + monthlyIncome + ", customer="
+				+ customer + "]";
 	}
 	
 	

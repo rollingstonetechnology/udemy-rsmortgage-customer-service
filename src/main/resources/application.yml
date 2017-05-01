@@ -32,8 +32,8 @@ security:
 #management endpoints on a separate port
 management:
   port: 9002
-  security:
-    enabled: false # management port is internal only. no need to secure it.
+  #security:
+    #enabled: false # management port is internal only. no need to secure it.
 
 #default project info followed by actual injected pom-specified values.
 project:

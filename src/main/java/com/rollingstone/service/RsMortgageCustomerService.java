@@ -14,77 +14,66 @@ import org.springframework.stereotype.Service;
 
 import com.rollingstone.dao.jpa.RsMortgageCustomerRepository;
 import com.rollingstone.domain.Customer;
-import com.rollingstone.domain.User;
 
 /*
- * Service class to do CRUD for User and Address through JPS Repository
- */
+* Service class to do CRUD for User and Address through JPS Repository
+*/
 @Service
 public class RsMortgageCustomerService {
 
-    private static final Logger log = LoggerFactory.getLogger(RsMortgageCustomerService.class);
+	private static final Logger log = LoggerFactory.getLogger(RsMortgageCustomerService.class);
+	
+	@Autowired
+	private RsMortgageCustomerRepository customerRepository;
+	
+	@Autowired
+	CounterService counterService;
+	
+	@Autowired
+	GaugeService gaugeService;
 
-    @Autowired
-    private RsMortgageCustomerRepository customerRepository;
+	public RsMortgageCustomerService() {
+	}
 
-    @Autowired
-    CounterService counterService;
+	public Customer createCustomer(Customer customer) {
+		if (customer.getDateOfBirth() != null) {
+			log.info("Customer Date of Birth :" + customer.getDateOfBirth());
+		} else {
+			log.info("Customer Date of Birth is null :");
+		}
+	
+		return customerRepository.save(customer);
+	}
 
-    @Autowired
-    GaugeService gaugeService;
+	public Customer getCustomer(long id) {
+		return customerRepository.findOne(id);
+	}
 
-    public RsMortgageCustomerService() {
-    }
+	public void updateCustomer(Customer customer) {
+		customerRepository.save(customer);
+	}
 
-    public Customer createCustomer(Customer customer) {
-    	if (customer.getDateOfBirth() != null){
-    		log.info("Customer Date of Birth :"+customer.getDateOfBirth());
-    	}else {
-    		log.info("Customer Date of Birth is null :");
-    	}
-    	
-    	if (customer.getDateOfBirth() != null){
-    		log.info("Customer Date of Birth :"+customer.getDateOfBirth());
-    	}else {
-    		log.info("Customer Date of Birth is null :");
-    	}
-        return customerRepository.save(customer);
-    }
+	public void deleteCustomer(Long id) {
+		customerRepository.delete(id);
+	}
 
-    public Customer getCustomer(long id) {
-        return customerRepository.findOne(id);
-    }
+	public Page<Customer> getAllCustomersByPage(Integer page, Integer size) {
+		Page pageOfCustomers = customerRepository.findAll(new PageRequest(page, size));
+		// example of adding to the /metrics
+		if (size > 50) {
+			counterService.increment("com.rollingstone.getAll.largePayload");
+		}
+		return pageOfCustomers;
+	}
 
-    public void updateCustomer(Customer customer) {
-    	customerRepository.save(customer);
-    }
+	public List<Customer> getAllCustomers() {
+		Iterable<Customer> pageOfCustomers = customerRepository.findAll();
+		List<Customer> customers = new ArrayList<Customer>();
+		for (Customer customer : pageOfCustomers) {
+			customers.add(customer);
+		}
+		log.info("In Real Service getAllCustomers size :" + customers.size());
 
-    public void deleteCustomer(Long id) {
-    	customerRepository.delete(id);
-    }
-
-    //http://goo.gl/7fxvVf
-    public Page<Customer> getAllCustomersByPage(Integer page, Integer size) {
-        Page pageOfCustomers = customerRepository.findAll(new PageRequest(page, size));
-        
-        // example of adding to the /metrics
-        if (size > 50) {
-            counterService.increment("com.rollingstone.getAll.largePayload");
-        }
-        return pageOfCustomers;
-    }
-    
-    public List<Customer> getAllCustomers() {
-        Iterable<Customer> pageOfCustomers = customerRepository.findAll();
-        
-        List<Customer> customers = new ArrayList<Customer>();
-        
-        for (Customer customer : pageOfCustomers){
-        	customers.add(customer);
-        }
-    	log.info("In Real Service getAllCustomers  size :"+customers.size());
-
-    	
-        return customers;
-    }
+		return customers;
+	}
 }

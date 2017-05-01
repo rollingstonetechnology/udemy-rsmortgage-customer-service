@@ -19,10 +19,10 @@ public class DegreeType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
+
 	@Column(nullable = false)
 	private String degreeTypeName;
-	
+
 	@Column(nullable = false)
 	private String degreeTypeDescription;
 
@@ -32,10 +32,6 @@ public class DegreeType {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public DegreeType(){
-		
 	}
 
 	public String getDegreeTypeName() {
@@ -52,12 +48,6 @@ public class DegreeType {
 
 	public void setDegreeTypeDescription(String degreeTypeDescription) {
 		this.degreeTypeDescription = degreeTypeDescription;
-	}
-
-	@Override
-	public String toString() {
-		return "DegreeType [id=" + id + ", degreeTypeName=" + degreeTypeName + ", degreeTypeDescription="
-				+ degreeTypeDescription + "]";
 	}
 
 	@Override
@@ -94,6 +84,10 @@ public class DegreeType {
 		return true;
 	}
 
+	public DegreeType(){
+		
+	}
+	
 	public DegreeType(long id, String degreeTypeName, String degreeTypeDescription) {
 		super();
 		this.id = id;
@@ -101,9 +95,4 @@ public class DegreeType {
 		this.degreeTypeDescription = degreeTypeDescription;
 	}
 
-		
-	
-
-
-	
 }

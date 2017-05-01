@@ -1,19 +1,21 @@
 package com.rollingstone.service;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.NotNull;
-
 /*
- * demonstrates how service-specific properties can be injected
- */
-@ConfigurationProperties(prefix = "customer.service", ignoreUnknownFields = false)
+* demonstrates how service-specific properties can be injected
+*/
+@ConfigurationProperties(prefix = "user.service", ignoreUnknownFields = false)
 @Component
 public class ServiceProperties {
-
-    @NotNull // you can also create configurationPropertiesValidator
-	private String name = "Empty";
+	@NotNull // you can also create configurationPropertiesValidator
+	private String name = "RSMortgageCustomerService";
+	
+	@NotNull // you can also create configurationPropertiesValidator
+	private String description = "RSMortgage Customer Spring Boot MicroService using Spring Data JPA, Spring Cloud Demo";
 
 	public String getName() {
 		return this.name;
@@ -23,4 +25,13 @@ public class ServiceProperties {
 		this.name = name;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	
 }

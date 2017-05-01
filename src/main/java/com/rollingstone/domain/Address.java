@@ -20,50 +20,45 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Address {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-
+	
 	@Column(nullable = false)
 	private String streetAddress;
-
+	
 	@Column(nullable = false)
 	private String state;
-
+	
 	@Column(nullable = false)
 	private String city;
-
+	
 	@Column(nullable = false)
 	private String zipCode;
-
+	
 	@Column(nullable = false)
 	private String country;
-
+	
 	@Column(nullable = false)
 	private boolean isCurrentAddress;
-
+	
 	@Column(nullable = false)
 	private boolean isMailingAddress;
-
+	
 	@Column(nullable = false)
 	private boolean isBillingAddress;
-
+	
 	@Column(nullable = false)
 	private boolean isPermanentResidence;
 	
 	@Column(nullable = false)
 	private boolean isInvestmentProperty;
-
-
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "customer_id", nullable = false)
 	@JsonBackReference
 	Customer customer;
-
-	public Address() {
-
-	}
 
 	public long getId() {
 		return id;
@@ -162,38 +157,17 @@ public class Address {
 	}
 
 	@Override
-	public String toString() {
-		return "Address [id=" + id + ", streetAddress=" + streetAddress + ", state=" + state + ", city=" + city
-				+ ", zipCode=" + zipCode + ", country=" + country + ", isCurrentAddress=" + isCurrentAddress
-				+ ", isMailingAddress=" + isMailingAddress + ", isBillingAddress=" + isBillingAddress
-				+ ", isPermanentResidence=" + isPermanentResidence + ", isInvestmentProperty=" + isInvestmentProperty
-				+ ", customer=" + customer + "]";
-	}
-
-	public Address(long id, String streetAddress, String state, String city, String zipCode, String country,
-			boolean isCurrentAddress, boolean isMailingAddress, boolean isBillingAddress, boolean isPermanentResidence,
-			boolean isInvestmentProperty, Customer customer) {
-		super();
-		this.id = id;
-		this.streetAddress = streetAddress;
-		this.state = state;
-		this.city = city;
-		this.zipCode = zipCode;
-		this.country = country;
-		this.isCurrentAddress = isCurrentAddress;
-		this.isMailingAddress = isMailingAddress;
-		this.isBillingAddress = isBillingAddress;
-		this.isPermanentResidence = isPermanentResidence;
-		this.isInvestmentProperty = isInvestmentProperty;
-		this.customer = customer;
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result + ((country == null) ? 0 : country.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + (isBillingAddress ? 1231 : 1237);
+		result = prime * result + (isCurrentAddress ? 1231 : 1237);
+		result = prime * result + (isInvestmentProperty ? 1231 : 1237);
+		result = prime * result + (isMailingAddress ? 1231 : 1237);
+		result = prime * result + (isPermanentResidence ? 1231 : 1237);
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		result = prime * result + ((streetAddress == null) ? 0 : streetAddress.hashCode());
 		result = prime * result + ((zipCode == null) ? 0 : zipCode.hashCode());
@@ -219,6 +193,18 @@ public class Address {
 				return false;
 		} else if (!country.equals(other.country))
 			return false;
+		if (id != other.id)
+			return false;
+		if (isBillingAddress != other.isBillingAddress)
+			return false;
+		if (isCurrentAddress != other.isCurrentAddress)
+			return false;
+		if (isInvestmentProperty != other.isInvestmentProperty)
+			return false;
+		if (isMailingAddress != other.isMailingAddress)
+			return false;
+		if (isPermanentResidence != other.isPermanentResidence)
+			return false;
 		if (state == null) {
 			if (other.state != null)
 				return false;
@@ -237,8 +223,37 @@ public class Address {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Address [id=" + id + ", streetAddress=" + streetAddress + ", state=" + state + ", city=" + city
+				+ ", zipCode=" + zipCode + ", country=" + country + ", isCurrentAddress=" + isCurrentAddress
+				+ ", isMailingAddress=" + isMailingAddress + ", isBillingAddress=" + isBillingAddress
+				+ ", isPermanentResidence=" + isPermanentResidence + ", isInvestmentProperty=" + isInvestmentProperty
+				+ "]";
+	}
+
+	public Address(){
+		
+	}
 	
+	public Address(long id, String streetAddress, String state, String city, String zipCode, String country,
+			boolean isCurrentAddress, boolean isMailingAddress, boolean isBillingAddress, boolean isPermanentResidence,
+			boolean isInvestmentProperty, Customer customer) {
+		super();
+		this.id = id;
+		this.streetAddress = streetAddress;
+		this.state = state;
+		this.city = city;
+		this.zipCode = zipCode;
+		this.country = country;
+		this.isCurrentAddress = isCurrentAddress;
+		this.isMailingAddress = isMailingAddress;
+		this.isBillingAddress = isBillingAddress;
+		this.isPermanentResidence = isPermanentResidence;
+		this.isInvestmentProperty = isInvestmentProperty;
+		this.customer = customer;
+	}
 
 	
-
+	
 }
